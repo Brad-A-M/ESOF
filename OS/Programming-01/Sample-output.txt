@@ -1,0 +1,32 @@
+Enter a number of cars:10
+Enter a max value:3
+[thread 19050496] To_Bridger is waiting, there are 1 cars waiting in this queue.
+[thread 20123648] To_Bridger is waiting, there are 3 cars waiting in this queue.
+[thread 21196800] To_Bridger is waiting, there are 4 cars waiting in this queue.
+[thread 20660224] To_Bridger is waiting, there are 5 cars waiting in this queue.
+[thread 19587072] To_Bridger is waiting, there are 2 cars waiting in this queue.
+[thread 17440768] To_Bozeman is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 5 cars waiting to go to Bridger. 1 cars have gone
+[thread 22269952] To_Bozeman is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 5 cars waiting to go to Bridger. 2 cars have gone
+[thread 17977344] To_Bozeman is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 5 cars waiting to go to Bridger. 3 cars have gone
+[thread 21196800] To_Bridger woke up!
+[thread 19050496] To_Bridger woke up!
+[thread 18513920] To_Bozeman is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 4 cars have gone
+[thread 20123648] To_Bridger woke up!
+[thread 21733376] To_Bozeman is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 5 cars have gone
+[thread 20660224] To_Bridger woke up!
+[thread 21196800] To_Bridger is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 6 cars have gone
+[thread 19587072] To_Bridger woke up!
+[thread 20123648] To_Bridger is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 7 cars have gone
+[thread 19050496] To_Bridger is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 8 cars have gone
+[thread 19587072] To_Bridger is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 9 cars have gone
+[thread 20660224] To_Bridger is now going! There is 1 car on the one way.
+There are 0 cars waiting to go to Bozeman, and 0 cars waiting to go to Bridger. 10 cars have gone
