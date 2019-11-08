@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 //to run
@@ -7,7 +9,7 @@
 
 
 int n=10; //number of prcesses
-int k = 10; // time interval during which processes may arrive uniformly at random
+int k = 100; // time interval during which processes may arrive uniformly at random
 int d =4; //the mean of the normal distributions of cpu time
 int v =1; //the variancew of the normal distribution of cpu time
 
@@ -52,7 +54,7 @@ int main(void)
             int w =x;
             data[i].a=w;data1[i].a=w;data2[i].a=w;
             double y = gsl_ran_gaussian(r, v)+d;
-            int z = y;
+            int z = fabs(y);
             data[i].u=z;data1[i].u=z;data2[i].u=z;
             data[i].r=z;data1[i].r=z;data2[i].r=z;
             data[i].tt=0;data1[i].tt=0;data2[i].tt=0;
@@ -72,13 +74,13 @@ int main(void)
     R1=R;
     R2=R;
     //////////////////////////////////////////////////////
-    //Begin FIFO update data here
+    //Begin FIFO update data[] here
     //////////////////////////////////////////////////////
     int t = 0;
     int V = 0;
     while(R!=0){
        
-            t=t+1;
+            //t=t+1;
             int x=-1;//store the index we will process
             int l=k+1;//find the earliest
             for(int i=0; i<n;i++){
@@ -100,6 +102,7 @@ int main(void)
         
         R=0;
         for(int i=0;i<n;i++){R = R + data[i].r;}
+        if(x==-1){t=t+1;}
     }
     
     
@@ -126,14 +129,14 @@ int main(void)
     V = 0;
     while(R1!=0){
         
-        t=t+1;
+        //t=t+1;
         int x=-1;//store the index we will process
         int l=k+1;//find the earliest
         for(int i=0; i<n;i++){
             //arrived past current time, there is time remaining
-            // and the earliest
+            // and the shortest
             if(data1[i].a<=t && data1[i].r!=0 && data1[i].u<l)
-            {l=data1[i].a; x=i;}
+            {l=data1[i].u; x=i;}
         }
         
         printf("%d, %d\n", x ,t);
@@ -148,6 +151,7 @@ int main(void)
         
         R1=0;
         for(int i=0;i<n;i++){R1 = R1 + data1[i].r;}
+        if(x==-1){t=t+1;}
     }
     
     
@@ -175,7 +179,7 @@ int main(void)
     V = 0;
     while(R2!=0){
         
-        t=t+1;
+        //t=t+1;
         int x=-1;//store the index we will process
         int l=k+1;//find the earliest
         for(int i=0; i<n;i++){
@@ -187,10 +191,10 @@ int main(void)
         
         printf("%d, %d\n", x ,t);
         if(x!=-1){
-          
+            t=t+1;
             data2[x].r=data2[x].r-1;
             if(data2[x].r==0){
-                data2[x].tt=t-data2[x].a+1;
+                data2[x].tt=t-data2[x].a;
                 
             }
             
@@ -198,6 +202,7 @@ int main(void)
         
         R2=0;
         for(int i=0;i<n;i++){R2 = R2 + data2[i].r;}
+        if(x==-1){t=t+1;}
     }
     
     
@@ -209,7 +214,7 @@ int main(void)
     bro=bro/n;
     printf("%f\n", bro);
     
-    
+    printf("FCFS %f, SJF %f, SRT %f\n", d/fifo, d/dude, d/bro);
     //////////////////////////////////////////////////////
     // End SRT
     //////////////////////////////////////////////////////
