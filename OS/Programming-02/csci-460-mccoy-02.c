@@ -8,10 +8,10 @@
 //gcc csci-460-mccoy-02.c -lgsl -lgslcblas -lm -o hey
 
 
-int n=10; //number of prcesses
-int k = 100; // time interval during which processes may arrive uniformly at random
-int d =4; //the mean of the normal distributions of cpu time
-int v =1; //the variancew of the normal distribution of cpu time
+int n = 10; //number of prcesses
+int k = 50; // time interval during which processes may arrive uniformly at random
+int d = 5; //the mean of the normal distributions of cpu time
+int v = 1; //the variancew of the normal distribution of cpu time
 
 typedef struct process process;
 /* Declare the struct with integer members x, y */
@@ -66,23 +66,20 @@ int main(void)
     for(int i=0;i<n;i++){
         printp(&data[i]);
     }
-   
+   printf("tt for fifo\n");
     int R=0;//find total remaining time
-    int R1;
-    int R2;
     for(int i=0;i<n;i++){R = R + data[i].r;}
-    R1=R;
-    R2=R;
+    int R1=R;
+    int R2=R;
     //////////////////////////////////////////////////////
     //Begin FIFO update data[] here
     //////////////////////////////////////////////////////
     int t = 0;
     int V = 0;
-    while(R!=0){
+    while(R!=0){//while any process has time remaining
        
-            //t=t+1;
-            int x=-1;//store the index we will process
-            int l=k+1;//find the earliest
+            int x=-1;//store the index of the process, if there is one to run
+            int l=k+1;//find the earliest arrival
             for(int i=0; i<n;i++){
                 //arrived past current time, there is time remaining
                 // and the earliest
@@ -90,8 +87,8 @@ int main(void)
                 {l=data[i].a; x=i;}
             }
             
-            printf("%d, %d\n", x ,t);
-            if(x!=-1){
+            //printf("%d, %d\n", x ,t);
+            if(x!=-1){//run the process
                 
                     while(data[x].r>0){
                         data[x].r=data[x].r-1;
@@ -112,7 +109,7 @@ int main(void)
     double fifo=0;
     for(int i=0;i<n;i++){fifo=fifo+data[i].tt;}
     fifo=fifo/n;
-    printf("%f\n", fifo);
+    printf("average tt for fifo %f\n", fifo);
     
     //////////////////////////////////////////////////////
     // End FIFO 
@@ -124,25 +121,24 @@ int main(void)
     for(int i=0;i<n;i++){
         printp(&data1[i]);
     }
-    
+    printf("tt for sjf\n");
     t = 0;
     V = 0;
     while(R1!=0){
         
-        //t=t+1;
         int x=-1;//store the index we will process
         int l=k+1;//find the earliest
         for(int i=0; i<n;i++){
             //arrived past current time, there is time remaining
-            // and the shortest
+            // and the shortest cpu time
             if(data1[i].a<=t && data1[i].r!=0 && data1[i].u<l)
             {l=data1[i].u; x=i;}
         }
         
-        printf("%d, %d\n", x ,t);
+        //printf("%d, %d\n", x ,t);
         if(x!=-1){
             
-            while(data1[x].r>0){
+            while(data1[x].r>0){//run the process
                 data1[x].r=data1[x].r-1;
                 t=t+1;
             }
@@ -161,7 +157,7 @@ int main(void)
     double dude=0;
     for(int i=0;i<n;i++){dude=dude+data1[i].tt;}
     dude=dude/n;
-    printf("%f\n", dude);
+    printf("average tt for sjf is %f\n", dude);
     
     
     //////////////////////////////////////////////////////
@@ -174,7 +170,7 @@ int main(void)
     for(int i=0;i<n;i++){
         printp(&data2[i]);
     }
-    
+    printf("tt for srt\n");
     t = 0;
     V = 0;
     while(R2!=0){
@@ -189,7 +185,7 @@ int main(void)
             {l=data2[i].r; x=i;}
         }
         
-        printf("%d, %d\n", x ,t);
+        //printf("%d, %d\n", x ,t);
         if(x!=-1){
             t=t+1;
             data2[x].r=data2[x].r-1;
@@ -212,9 +208,9 @@ int main(void)
     double bro=0;
     for(int i=0;i<n;i++){bro=bro+data2[i].tt;}
     bro=bro/n;
-    printf("%f\n", bro);
+    printf("average tt for srt is %f\n", bro);
     
-    printf("FCFS %f, SJF %f, SRT %f\n", d/fifo, d/dude, d/bro);
+    printf("d divided by the average turnaround times FCFS %f, SJF %f, SRT %f\n", d/fifo, d/dude, d/bro);
     //////////////////////////////////////////////////////
     // End SRT
     //////////////////////////////////////////////////////
